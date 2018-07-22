@@ -11,9 +11,9 @@ module.exports = async (ctx, next) => {
         'Access-Control-Allow-Origin':"*",
         'Access-Control-Allow-Headers': 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
         'Access-Control-Allow-Methods': 'PUT,PATCH,POST,GET,DELETE,OPTIONS',
-        // 'Access-Control-Max-Age': '1728000',
+        'Access-Control-Max-Age': '1728000',
         'Content-Type': 'application/json;charset=utf-8',
-        'X-Powered-By': 'my_blog 1.0.0'
+        'X-Powered-By': 'vue-mall 1.0.0'
     });
 
     // OPTIONS

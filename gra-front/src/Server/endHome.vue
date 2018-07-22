@@ -101,22 +101,25 @@
       }
     },
     mounted(){
-      this.$store.dispatch('SetAdminUserName',exportAdmin().username);
-      const array = this.$router.options.routes;
-      this.routes = array.filter((item)=>{
-        return item.path.match('admin')
-      })
-      console.log(this.$route.path)
-
-      const id = exportAdmin().userId;
-      api.adminquery(id).then((res) =>{
-        this.userForm = res.data.result;
-        if(res.data.result.avatar.includes('http')||res.data.result.avatar.includes('https')){
-          this.$store.dispatch('SetAdminAvatar',res.data.result.avatar);
-        }else{
-          this.$store.dispatch('SetAdminAvatar',`http://localhost:8000/${res.data.result.avatar}`);
-        }
-      })
+      if(!localStorage.getItem('admin_jwt')){
+        this.$router.push({name:'endLogin'})
+      }else{
+         this.$store.dispatch('SetAdminUserName',exportAdmin() ? exportAdmin().username : " ");
+         const array = this.$router.options.routes;
+         this.routes = array.filter((item)=>{
+            return item.path.match('admin')
+          })
+          const id = exportAdmin().userId;
+          api.adminquery(id).then((res) =>{
+            this.userForm = res.data.result;
+            if(res.data.result.avatar.includes('http')||res.data.result.avatar.includes('https')){
+              this.$store.dispatch('SetAdminAvatar',res.data.result.avatar);
+            }else{
+              this.$store.dispatch('SetAdminAvatar',`http://localhost:8000/${res.data.result.avatar}`);
+            }
+          })
+      }
+     
     }
   }
 </script>

@@ -18,6 +18,17 @@ Vue.use(VueLazyload, {
 Vue.use(infiniteScroll)
 
 router.beforeEach((to, from, next) => {
+
+  if(to.meta.Auth){
+    if(localStorage.getItem('admin_jwt')){
+      next();
+    }else{
+      router.push({ name: 'endLogin' })
+    }
+  }else{
+    next();
+  }
+
   // const token = localStorage.getItem('jwt');
   // iView.LoadingBar.start();
   // if (token) {
@@ -25,7 +36,7 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next('/login');
   // }
-  next();
+ 
 });
 
 router.afterEach(route => {

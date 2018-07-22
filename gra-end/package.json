@@ -18,7 +18,9 @@
     "koa-cors": "0.0.16",
     "koa-helmet": "^3.3.0",
     "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "mocha": "^5.0.4",
-    "mongoose": "^5.0.9"
+    "mongoose": "^5.0.9",
+    "supervisor": "^0.12.0"
   }
 }

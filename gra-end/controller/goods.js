@@ -25,7 +25,7 @@ class GoodsController{
             var ext = '.' + tmparr[tmparr.length - 1];
             var newpath = path.join('public/upload', parseInt(Math.random() * 100) + Date.parse(new Date()).toString() + ext);
 
-            let filepath ="http://localhost:8000/"+ newpath.replace(/\\/g,"/").substring(7)
+            let filepath = newpath.replace(/\\/g,"/").substring(7)
 
             filespath.push(filepath)
             var stream = fs.createWriteStream(newpath);//创建一个可写流

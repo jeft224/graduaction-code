@@ -6,15 +6,15 @@
 				<ul class="side-left">
 					<li class="side-item"
 						@mouseenter="evtSideEnter(item.type)"
-						v-for="item in sideItems">
+						v-for="(item,index) in sideItems" :key="index">
 						{{item.content}}
 					</li>
 				</ul>
 			</div>
 			<div class="site-category-detail"
 				v-show="goodsStatus">
-				<ul class="category-items" v-for="goods in filterCurrGoods">
-					<li class="category-goods" v-for="item in goods">
+				<ul class="category-items" v-for="(goods,tmp) in filterCurrGoods" :key="tmp">
+					<li class="category-goods" v-for="(item,index) in goods" :key="index">
             <router-link  class="goods-link" :to="'goodsDetails?productId='+item.productId">
 							<img :src="item.imgUrl" alt="" style="width:40px;height: 40px"/>
 							<div class="text-name">
@@ -37,6 +37,7 @@
 <script>
 import slide from './Slide.vue'
 import api from '../api'
+import {IsVersion} from '../utils/enviroment.js'
 export default {
 	data () {
 		return {
@@ -104,7 +105,7 @@ export default {
               buyStatus:true
           };
           paramPhones.productId = item.productId;
-          paramPhones.imgUrl = item.productImageSmall[0];
+          paramPhones.imgUrl = IsVersion(item.productImageSmall[0]);
           paramPhones.name = item.productName;
 	        this.phones.push(paramPhones)
         }else if(item.tag === 'computer'){
@@ -115,7 +116,7 @@ export default {
             buyStatus:true
           };
           paramComputer.productId = item.productId;
-          paramComputer.imgUrl = item.productImageSmall[0];
+          paramComputer.imgUrl = IsVersion(item.productImageSmall[0]);
           paramComputer.name = item.productName;
 	        this.computer.push(paramComputer)
         }else if(item.tag === 'headset'){
@@ -126,7 +127,7 @@ export default {
             buyStatus:true
           };
           paramComputer.productId = item.productId;
-          paramComputer.imgUrl = item.productImageSmall[0];
+          paramComputer.imgUrl =IsVersion(item.productImageSmall[0]);
           paramComputer.name = item.productName;
           this.headset.push(paramComputer)
         }else if(item.tag === 'router'){
@@ -137,7 +138,7 @@ export default {
             buyStatus:true
           };
           paramComputer.productId = item.productId;
-          paramComputer.imgUrl = item.productImageSmall[0];
+          paramComputer.imgUrl = IsVersion(item.productImageSmall[0]);
           paramComputer.name = item.productName;
           this.router.push(paramComputer)
         }else if(item.tag === 'power'){
@@ -148,7 +149,7 @@ export default {
             buyStatus:true
           };
           paramComputer.productId = item.productId;
-          paramComputer.imgUrl = item.productImageSmall[0];
+          paramComputer.imgUrl = IsVersion(item.productImageSmall[0]);
           paramComputer.name = item.productName;
           this.power.push(paramComputer)
         }else if(item.tag === 'box'){
@@ -159,7 +160,7 @@ export default {
             buyStatus:true
           };
           paramComputer.productId = item.productId;
-          paramComputer.imgUrl = item.productImageSmall[0];
+          paramComputer.imgUrl = IsVersion(item.productImageSmall[0]);
           paramComputer.name = item.productName;
           this.box.push(paramComputer)
         }

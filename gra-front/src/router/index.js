@@ -78,6 +78,9 @@ export default new Router({
       iconCls: 'home',
       leaf: true, //只有一个节点
       hidden:true,
+      meta: {
+        Auth: true, // 需要登录
+      },
       component: endHome,
       children: [
         { path: '/', component:server, name: 'tohome' },
@@ -86,7 +89,7 @@ export default new Router({
     },
 
     {
-      path: '/admin/usermanage',//usermanage /goodsmanage
+      path: '/admin/usermanage',
       name: '用户管理',
       iconCls: 'social-freebsd-devil',
       component: endHome,

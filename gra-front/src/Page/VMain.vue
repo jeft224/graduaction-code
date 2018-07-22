@@ -12,7 +12,7 @@
         <y-shelf :title="item.title">
           <div slot="content" class="floors">
             <div class="imgbanner">
-              <img :src="floors[i].img" :alt="item.title">
+              <img v-lazy="floors[i].img" :alt="item.title">
             </div>
             <mall-goods :msg="tab" v-for="(tab,i) in item.tab" :key="i"></mall-goods>
           </div>
@@ -25,6 +25,7 @@
   import YShelf from '../components/shelf'
   import MallGoods from '../components/mallGoods'
   import TopBanner from '../components/TopBanner'
+  import {IsVersion} from '../utils/enviroment.js'
   import api from '../api'
     export default {
         name: "vmain",
@@ -83,19 +84,19 @@
               if(this.router.tab.length>=2){
                 return ;
               }
-              this.router.img= item.productImageSmall[0]
+              this.router.img= IsVersion(item.productImageSmall[0])
               this.router.tab.push(item)
             }else if(item.tag === 'computer') {
               if (this.computer.tab.length >= 2) {
                 return;
               }
-              this.computer.img = item.productImageSmall[0]
+              this.computer.img = IsVersion(item.productImageSmall[0])
               this.computer.tab.push(item)
             }else if(item.tag === 'power') {
               if (this.power.tab.length >= 2) {
                 return;
               }
-              this.power.img = item.productImageSmall[0]
+              this.power.img = IsVersion(item.productImageSmall[0])
               this.power.tab.push(item)
             }
           }

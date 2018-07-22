@@ -13,7 +13,7 @@
             <div class="cart-count">数量</div>
             <div class="cart-price">单价</div>
           </div>
-          <div class="cart-content-main clearfix" v-for="(item, index) in cartList">
+          <div class="cart-content-main clearfix" v-for="(item, index) in cartList" :key="index">
             <div  class="cart-choose">
               <span  class="blue-checkbox-new " :class="{'checkbox-on':item.checked === '1'}" @click="editCart('check',item)"></span></div>
             <div class="cart-info f1">

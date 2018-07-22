@@ -3,7 +3,7 @@
     <div>
       <div class="good-img">
         <router-link :to="'goodsDetails?productId='+msg.productId">
-          <img v-lazy="msg.productImageSmall[0]" :alt="msg.productName">
+          <img v-lazy="imageUrl" :alt="msg.productName">
         </router-link>
       </div>
       <h6 class="good-title">{{msg.productName}}</h6>
@@ -24,6 +24,7 @@
 <script>
   import api from '../api'
   import { mapMutations, mapState } from 'vuex'
+  import {IsVersion} from '../utils/enviroment.js'
 
   export default {
     props: {
@@ -31,7 +32,7 @@
     },
     data () {
       return {
-
+       
       }
     },
     methods: {
@@ -58,9 +59,11 @@
       }
     },
     computed: {
-      ...mapState(['token'])
-    },
-    mounted () {
+      ...mapState(['token']),
+      imageUrl() {
+        console.log(this.msg.productImageSmall[0])
+        return IsVersion(this.msg.productImageSmall[0]);
+      }
     },
     components: {
       // YButton

@@ -58,6 +58,7 @@
 
 <script>
     import api from '../api'
+    import {IsVersion} from '../utils/enviroment.js'
     export default {
         name: "goods-list",
         data(){
@@ -99,7 +100,7 @@
                 render: (h, params) => {
                   return h('img',{
                     attrs:{
-                      src:this.goodsData[params.index].productImageSmall[0]
+                      src:IsVersion(this.goodsData[params.index].productImageSmall[0])
                     },style:{
                       width:'30px',
                       height:'30px'
@@ -207,9 +208,11 @@
             console.log(index.row.productId)
             api.getGoodsById(index.row.productId).then((data)=>{
                 console.log(data)
-              this.goods = data.data.result.good
+              this.goods = data.data.result.good;
+              this.goods.productImageSmall = IsVersion(this.goods.productImageSmall);
             })
-            this.uploadList = this.goods.productImageSmall;
+            this.uploadList = IsVersion(this.goods.productImageSmall);
+            console.log(this.uploadList)
             this.goodsModal =status;
 
           },

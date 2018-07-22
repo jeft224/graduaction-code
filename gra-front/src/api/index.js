@@ -26,7 +26,10 @@ authAxios.interceptors.request.use((config)=>{
 // })
 
 //前后端分离，调用后端服务
-axios.defaults.baseURL = authAxios.defaults.baseURL = 'http://localhost:8000';
+//线上地址
+// axios.defaults.baseURL = authAxios.defaults.baseURL = 'http://nodeapi.lonecloud.cn';
+//本地地址
+ axios.defaults.baseURL = authAxios.defaults.baseURL = 'http://localhost:8000';
 
 //添加修改删除 都需要带上token
 function postAxiosApi(apiPath,params){

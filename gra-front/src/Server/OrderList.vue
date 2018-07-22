@@ -40,6 +40,7 @@
 
 <script>
   import api from '../api'
+import { IsVersion } from '../utils/enviroment';
   export default {
     name: "order-list",
     data(){
@@ -159,6 +160,9 @@
           this.address = data.data.result.addressInfo.receiverAddress;
           this.goodslist =data.data.result.goodsList;
         })
+        this.goodslist.map((item) => {
+          item.productImg = IsVersion(item.productImg)
+        })
         this.ordersModal =status;
       },
       handleChange(date){
@@ -178,7 +182,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .imglist{
     position: relative;
     display: flex;

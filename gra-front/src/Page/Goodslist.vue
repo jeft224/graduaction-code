@@ -62,7 +62,7 @@
               priceLte: max
             }
             api.getAllGoods(params).then((res)=>{
-              console.log(res.data.result.goods)
+              // console.log(res.data.result.goods)
               if(res.data.code ===1){
                 if(res.data.result.goods.length !== 0){
                   let data = res.data.result.goods

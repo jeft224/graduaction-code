@@ -65,6 +65,7 @@
   import api from '../api'
   import { mapMutations, mapState } from 'vuex'
   import YShelf from '../components/shelf'
+  import {IsVersion} from '../utils/enviroment.js'
 
   export default {
     data () {
@@ -112,14 +113,13 @@
     },
     created () {
       let id = this.$route.query.productId
-      console.log(id);
+      // console.log(id);
       api.getGoodsById(id).then((res)=>{
         let result = res.data.result
         this.product = result.good
-        this.productMsg =result.good.productImageSmall||''
-        this.small=result.good.productImageSmall
-        // this.small.push(result.good.productImageSmall[1])
-        this.big = result.good.productImageSmall[0]
+        this.productMsg = IsVersion(result.good.productImageSmall) || ''
+        this.small=IsVersion(result.good.productImageSmall)
+        this.big = IsVersion(result.good.productImageSmall[0])
       })
     }
   }
