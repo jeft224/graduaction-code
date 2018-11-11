@@ -1,25 +1,33 @@
 'user strict'
 
 const  Koa = require('koa');
-const config = require('./config')
+const config = require('./config');
 const  http = require('http');
 const KoaBody = require('koa-body'); //post 解析
 const helmet = require('koa-helmet'); // 安全相关
-const mongodb = require('./mongodb')
-const router = require('./route')
-const Interceptor = require('./middlewares/intercepotor')
+const mongodb = require('./mongodb');
+const router = require('./route');
+const Interceptor = require('./middlewares/intercepotor');
+const Logger = require('./middlewares/logs/log')
 
 const  app = new Koa();
 
 //数据连接
  mongodb.connect();
 
-// logger 日志
+// logger 日志 edit -> 将logger日志改成log4js日志
 app.use(async (ctx, next) => {
     const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+    try {
+        await next();
+        const ms = Date.now() - start;
+        Logger.logResponse(ctx,ms);
+        console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+    }catch (error) {
+        const ms = Date.now() - start;
+        Logger.logError(ctx,error,ms);
+    }
+
 });
 
 app.use(Interceptor);
