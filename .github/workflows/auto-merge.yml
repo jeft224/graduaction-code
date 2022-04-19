@@ -1,0 +1,29 @@
+name: Dependabot Auto Merge
+on:
+  pull_request:
+    types: [labeled, edited]
+
+jobs:
+  merge:
+    if: github.event.label.name == 'dependencies' #为了防止不必要的执行，限定只有 `dependencies` 标签的 PR 才会进入自动审批流程
+    name: Dependabot Auto Merge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: "14"
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
+          key: npm-${{ runner.os }}-${{ hashFiles('package.json') }}
+      - uses: KeisukeYamashita/auto-pull-request-merge@v1 #这里调用这个 action，具体原理是自动用你的账号发一条`dependabot merge` 命令。其实我觉得有更好的方案，那就是自动 rebase PR，但暂时没找到，日后会继续找下有没有这样的方案
+        with:
+          strategy: rebase
+          token: ${{ secrets.MY_TOKEN }} #这里填写你的 GitHub Token ，申请方式自己搜一下即可
